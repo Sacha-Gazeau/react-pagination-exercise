@@ -9,7 +9,9 @@ function App() {
   const pageCount = 10;
 
   function handlePageChanged(pageNumber) {
-    // TO DO
+    if (pageNumber >= 1 && pageNumber <= pageCount) {
+      setCurrentPage(pageNumber);
+    }
   }
 
   return (

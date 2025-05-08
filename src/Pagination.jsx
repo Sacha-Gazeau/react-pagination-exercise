@@ -1,46 +1,37 @@
 export function Pagination({ currentPage, pageCount, onPageChanged }) {
-  // https://bulma.io/documentation/components/pagination/
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
   return (
-    <nav className="pagination" role="navigation" aria-label="pagination">
-      <button className="pagination-previous">Previous page</button>
-      <button className="pagination-next">Next page</button>
-      <ul className="pagination-list">
-        <li>
-          <button className="pagination-link" aria-label="Goto page 1">
-            1
-          </button>
-        </li>
-        <li>
-          <span className="pagination-ellipsis">&hellip;</span>
-        </li>
-        <li>
-          <button className="pagination-link" aria-label="Goto page 45">
-            45
-          </button>
-        </li>
-        <li>
-          <button
-            className="pagination-link is-current"
-            aria-label="Page 46"
-            aria-current="page"
-          >
-            46
-          </button>
-        </li>
-        <li>
-          <button className="pagination-link" aria-label="Goto page 47">
-            47
-          </button>
-        </li>
-        <li>
-          <span className="pagination-ellipsis">&hellip;</span>
-        </li>
-        <li>
-          <button className="pagination-link" aria-label="Goto page 86">
-            86
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <nav className="pagination" role="navigation" aria-label="pagination">
+        <button
+          className="pagination-previous"
+          onClick={() => onPageChanged(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <button
+          className="pagination-next"
+          onClick={() => onPageChanged(currentPage + 1)}
+          disabled={currentPage === pageCount}
+        >
+          Next page
+        </button>
+        <ul className="pagination-list">
+          {pages.map((pageNumber) => (
+            <li key={pageNumber}>
+              <button
+                className={`pagination-link ${
+                  pageNumber === currentPage ? `is-current` : ``
+                }`}
+                onClick={() => onPageChanged(pageNumber)}
+              >
+                {pageNumber}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 }
